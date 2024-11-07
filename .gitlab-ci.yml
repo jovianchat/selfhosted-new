@@ -1,0 +1,30 @@
+include:
+  - local: '/axum-api/.gitlab-ci.yml'
+    rules:
+      - changes:
+        - 'axum-api/*'
+  - local: '/sveltekit-ui/.gitlab-ci.yml'
+    rules:
+      - changes:
+        - 'sveltekit-ui/*'
+
+stages:
+  - setup
+  - build
+  - package
+
+artifacts:
+
+container_build:
+  stage: package
+  image: docker:latest
+  services:
+    - docker:dind
+  before_script:
+    - cd devOps
+    - echo "$CI_JOB_TOKEN" | docker login $CI_REGISTRY -u $CI_REGISTRY_USER --password-stdin
+  script:
+    - docker build -t $CI_REGISTRY_IMAGE:beta-0.0.1 .
+    - docker push $CI_REGISTRY_IMAGE:beta-0.0.1
+  dependencies:
+    - ui_build

@@ -1,0 +1,60 @@
+image: rust:latest
+
+variables:
+  CARGO_TERM_COLOR: always
+
+# Cache cargo dependencies and build artifacts
+cache:
+  paths:
+    - backend/target/
+  policy: pull-push
+
+backend_test:
+  stage: checks_and_setup
+  tags:
+    - devE-docker
+  variables:
+    APP_ENVIRONMENT: 'development'
+    DATABASE_URL: 'postgres://myadmin:mydevpassword@postgres:5432/mydatabase'
+    DATABASE_POOL_MAX_SIZE: '5'
+  services:
+    - name: postgres:alpine
+      variables:
+        POSTGRES_PASSWORD: mydevpassword
+        POSTGRES_USER: myadmin
+        POSTGRES_DB: mydatabase
+  before_script:
+    - cd backend
+  script:
+    - rustup component add rustfmt clippy
+    # Install sqlx
+    - cargo install sqlx-cli --no-default-features --features postgres,rustls
+    - sqlx migrate run
+    - cargo sqlx prepare --workspace # Prepare SQLx offline data and then pass to next job via artifacts
+    # Format check and Clippy
+    - cargo fmt -- --check
+    - cargo clippy --all-targets --all-features -- -D warnings
+    # Run tests
+    - cargo build --verbose
+    - cargo test --all-features --verbose
+  artifacts:
+    paths:
+      - backend/.sqlx/
+
+backend_build:
+  stage: build
+  tags:
+    - devE-docker
+  variables:
+    APP_ENVIRONMENT: 'production'
+    SQLX_OFFLINE: 'true'
+  before_script:
+    - cd backend
+  script:
+    - cargo build --release
+    - mv target/release/axum-api .
+  artifacts:
+    paths:
+      - backend/axum-api
+  dependencies:
+    - backend_test

@@ -1,0 +1,19 @@
+name: SvelteKit UI App Main Workflow
+on:
+  push:
+  pull_request:
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: ubuntu-22.04
+    steps:
+      # Step 1: Check out the code
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with:
+          name: sveltekit-output-files
+          run-id: ${{ github.event.workflow_run.id }}
+      - name: Deploy Check
+        run: |
+          ls -a

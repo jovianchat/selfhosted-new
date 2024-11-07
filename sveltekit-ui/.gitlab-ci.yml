@@ -1,0 +1,25 @@
+stages:
+  - build
+
+ui_build:
+  stage: build
+  image: node:latest
+  before_script:
+    - cd sveltekit-ui
+    - corepack enable
+    - corepack prepare pnpm@latest-9 --activate
+    - pnpm config set store-dir .pnpm-store
+  script:
+    - pnpm install # install dependencies
+    - pnpm run build
+  cache:
+    key:
+      files:
+        - sveltekit-ui/pnpm-lock.yaml
+    paths:
+      - sveltekit-ui/.pnpm-store
+  artifacts:
+    paths:
+      - sveltekit-ui/build
+      - sveltekit-ui/package.json
+      - sveltekit-ui/node_modules
