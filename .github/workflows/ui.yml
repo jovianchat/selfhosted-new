@@ -4,16 +4,15 @@ on:
   pull_request:
     branches: [main]
 
-defaults:
-  run:
-    working-directory: sveltekit-ui
-
 jobs:
   ui_build:
     runs-on: ubuntu-22.04
     strategy:
       matrix:
         node-version: [22]
+    defaults:
+      run:
+        working-directory: sveltekit-ui
     steps:
       # Step 1: Check out the code
       - uses: actions/checkout@v4
