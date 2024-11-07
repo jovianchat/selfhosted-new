@@ -1,4 +1,4 @@
-name: SvelteKit UI App Main Workflow
+name: UI Build
 on:
   push:
   pull_request:

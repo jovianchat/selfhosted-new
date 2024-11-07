@@ -1,8 +1,11 @@
-name: SvelteKit UI App Main Workflow
+name: Release
+
 on:
-  push:
-  pull_request:
+  workflow_run:
+    workflows: ["UI Build"]
     branches: [main]
+    types:
+      - completed
 
 jobs:
   build:
