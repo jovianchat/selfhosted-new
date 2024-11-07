@@ -15,7 +15,7 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/download-artifact@v4
         with:
-          name: sveltekit-output-files
+          name: ui-output-files
           run-id: ${{ github.event.workflow_run.id }}
           path: ui
       - name: Deploy Check
