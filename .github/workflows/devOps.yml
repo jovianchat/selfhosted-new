@@ -17,6 +17,7 @@ jobs:
         with:
           name: sveltekit-output-files
           run-id: ${{ github.event.workflow_run.id }}
+          path: ui
       - name: Deploy Check
         run: |
           ls -a

@@ -6,7 +6,6 @@
 	"scripts": {
 		"dev": "vite dev",
 		"build": "vite build",
-		"prod-run": "node build",
 		"preview": "vite preview",
 		"sync": "svelte-kit sync",
 		"clean": "find . \\( -name \"node_modules\" -o -name \"dist\" -o -name \"build\" -o -name \".svelte-kit\" \\) -type d -prune -exec rm -rf '{}' +",
