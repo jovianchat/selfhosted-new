@@ -1,0 +1,40 @@
+name: Axum_Api
+
+on:
+  push:
+  pull_request:
+    branches: [main]
+
+defaults:
+  run:
+    working-directory: backend
+
+jobs:
+  checks_and_setup:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres
+        env:
+          POSTGRES_PASSWORD: devtestpass
+          POSTGRES_USER: devtestuser
+          POSTGRES_DB: devtestdb
+        ports:
+          - 5432:5432
+        options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
+
+    env:
+      APP_ENVIRONMENT: development
+      DATABASE_URL: postgres://devtestuser:devtestpass@localhost:5432/devtestdb
+      DATABASE_POOL_MAX_SIZE: 5
+
+    steps:
+      - uses: actions/checkout@v4
+      - uses: .github/actions/rust-setup/action.yml
+      - uses: .github/actions/sqlx/action.yml
+      - name: Run Rustfmt & Clippy # Check code formatting && Run Clippy and treat warnings as errors
+        run: cargo fmt -- --check && cargo clippy --all-targets --all-features -- -D warnings
+      - name: Build Project
+        run: cargo build --verbose # Build the project in debug mode
+      - name: Run Tests
+        run: cargo test --all-features --verbose # Run all tests with features enabled

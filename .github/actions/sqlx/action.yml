@@ -1,0 +1,36 @@
+name: Sqlx Setup
+description: "Setup Sqlx toolchain with caching"
+
+# inputs:
+#   working-directory:
+#     description: "Working directory"
+#     required: false
+#     default: "server"
+
+runs:
+  using: "composite"
+  steps:
+    - name: Check and Install sqlx-cli
+      run: |
+        if ! command -v sqlx &> /dev/null; then
+          cargo install sqlx-cli --no-default-features --features native-tls,postgres
+        else
+          echo "Sqlx CLI is already installed."
+        fi
+      shell: bash
+    # Setup for test build
+    - name: Sqlx Migration
+      run: sqlx migrate run
+      shell: bash
+      # working-directory: ${{ inputs.working-directory }}
+    # Setup for release build
+    - name: Sqlx Prepare
+      run: cargo sqlx prepare
+      shell: bash
+      # working-directory: ${{ inputs.working-directory }}
+    - name: Cache Sqlx Offline metadata
+      id: sqlx-cache
+      uses: actions/cache@v4
+      with:
+        path: ./.sqlx
+        key: ${{ runner.os }}-sqlx-${{ hashFiles('migrations/**') }}
