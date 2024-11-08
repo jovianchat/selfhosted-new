@@ -1,11 +1,10 @@
 name: Sqlx Setup
 description: "Setup Sqlx toolchain with caching"
 
-# inputs:
-#   working-directory:
-#     description: "Working directory"
-#     required: false
-#     default: "server"
+inputs:
+  working-directory:
+    description: "Working directory"
+    required: false
 
 runs:
   using: "composite"
@@ -20,14 +19,14 @@ runs:
       shell: bash
     # Setup for test build
     - name: Sqlx Migration
-      run: ls
+      run: sqlx migrate run
       shell: bash
-      # working-directory: ${{ inputs.working-directory }}
+      working-directory: ${{ inputs.working-directory }}
     # Setup for release build
     - name: Sqlx Prepare
       run: cargo sqlx prepare
       shell: bash
-      # working-directory: ${{ inputs.working-directory }}
+      working-directory: ${{ inputs.working-directory }}
     - name: Cache Sqlx Offline metadata
       id: sqlx-cache
       uses: actions/cache@v4

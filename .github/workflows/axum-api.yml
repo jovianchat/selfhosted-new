@@ -30,10 +30,12 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
-      - uses: ./.github/actions/rust-setup
+      - name: Install Rust Toolchain
+        uses: ./.github/actions/rust-setup
         with:
           components: rustfmt, clippy
-      - uses: ./.github/actions/sqlx
+      - name: Sqlx Prepare Offline and Cache Migrations
+        uses: ./.github/actions/sqlx
       - name: Run Rustfmt & Clippy # Check code formatting && Run Clippy and treat warnings as errors
         run: cargo fmt -- --check && cargo clippy --all-targets --all-features -- -D warnings
       - name: Build Project
