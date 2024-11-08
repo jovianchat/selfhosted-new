@@ -1,9 +1,7 @@
 name: Axum_Api
 
 on:
-  push:
-  pull_request:
-    branches: [main]
+  workflow_call:
 
 defaults:
   run:
@@ -36,6 +34,8 @@ jobs:
           components: rustfmt, clippy
       - name: Sqlx Prepare Offline and Cache Migrations
         uses: ./.github/actions/sqlx
+        with:
+          working-directory: backend
       - name: Run Rustfmt & Clippy # Check code formatting && Run Clippy and treat warnings as errors
         run: cargo fmt -- --check && cargo clippy --all-targets --all-features -- -D warnings
       - name: Build Project
