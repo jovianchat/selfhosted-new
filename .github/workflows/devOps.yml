@@ -12,12 +12,12 @@ jobs:
     if: ${{ github.event.workflow_run.conclusion == 'success' }}
     steps:
       # Step 1: Check out the code
-      - uses: actions/checkout@v4
       - uses: actions/download-artifact@v4
         with:
           name: ui-output-files
           run-id: ${{ github.event.workflow_run.id }}
           github-token: ${{ secrets.GITHUB_TOKEN }}
+          path: ui
       - name: Deploy Check
         run: |
           ls -a
