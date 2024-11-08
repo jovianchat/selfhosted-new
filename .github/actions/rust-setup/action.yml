@@ -9,6 +9,9 @@ inputs:
   components:
     description: "Rust components to install"
     required: false
+  targets:
+    description: "Rust targets to install"
+    required: false
 
 runs:
   using: "composite"
@@ -29,3 +32,4 @@ runs:
       with:
         toolchain: ${{ inputs.toolchain }}
         components: ${{ inputs.components }}
+        targets: ${{ inputs.targets }}
