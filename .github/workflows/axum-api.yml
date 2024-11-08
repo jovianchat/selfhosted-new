@@ -45,7 +45,7 @@ jobs:
 
   build:
     needs: checks_and_setup
-    runs-on: ubuntu-latest
+    runs-on: alpine-latest
     env:
       APP_ENVIRONMENT: "production"
       SQLX_OFFLINE: "true"
