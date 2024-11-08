@@ -31,5 +31,5 @@ runs:
       id: sqlx-cache
       uses: actions/cache@v4
       with:
-        path: ./.sqlx
+        path: ${{ inputs.working-directory }}/.sqlx
         key: ${{ runner.os }}-sqlx-${{ hashFiles('migrations/**') }}
