@@ -30,8 +30,8 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
-      - uses: .github/actions/rust-setup/action.yml
-      - uses: .github/actions/sqlx/action.yml
+      - uses: .github/actions/rust-setup
+      - uses: .github/actions/sqlx
       - name: Run Rustfmt & Clippy # Check code formatting && Run Clippy and treat warnings as errors
         run: cargo fmt -- --check && cargo clippy --all-targets --all-features -- -D warnings
       - name: Build Project

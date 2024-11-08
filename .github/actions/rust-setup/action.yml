@@ -1,4 +1,3 @@
-# .github/actions/rust-setup/action.yml
 name: "Rust Setup Action"
 description: "Setup Rust toolchain with caching"
 

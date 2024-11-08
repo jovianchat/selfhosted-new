@@ -1,4 +1,4 @@
-name: Svelte_Ui
+name: Svelte_UI
 
 on:
   push:
