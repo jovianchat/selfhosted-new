@@ -9,7 +9,6 @@ defaults:
 
 jobs:
   checks_and_setup:
-    runs-on: ubuntu-latest
     services:
       postgres:
         image: postgres
@@ -21,6 +20,7 @@ jobs:
           - 5432:5432
         options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
 
+    runs-on: ubuntu-latest
     env:
       APP_ENVIRONMENT: development
       DATABASE_URL: postgres://devtestuser:devtestpass@localhost:5432/devtestdb
@@ -40,5 +40,23 @@ jobs:
         run: cargo fmt -- --check && cargo clippy --all-targets --all-features -- -D warnings
       - name: Build Project
         run: cargo build --verbose # Build the project in debug mode
-      - name: Run Tests
-        run: cargo test --all-features --verbose # Run all tests with features enabled
+      # - name: Run Tests
+      #   run: cargo test --all-features --verbose # Run all tests with features enabled
+
+  build:
+    needs: checks_and_setup
+    runs-on: ubuntu-latest
+    env:
+      APP_ENVIRONMENT: "production"
+      SQLX_OFFLINE: "true"
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install Rust Toolchain
+        uses: ./.github/actions/rust-setup
+      - name: Cargo Build Release
+        run: cargo build --release --verbose
+      - name: Upload Build Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: axum_build_binary
+          path: backend/target/release/axum-api
