@@ -15,12 +15,12 @@ jobs:
     runs-on: ubuntu-22.04
     steps:
       # Step 1: Check out the code
-      - uses: actions/download-artifact@v4
-        with:
-          name: svelte_build_output
-          run-id: ${{ github.event.workflow_run.id }}
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          path: ui
+      # - uses: actions/download-artifact@v4
+      #   with:
+      #     name: svelte_build_output
+      #     run-id: ${{ github.event.workflow_run.id }}
+      #     github-token: ${{ secrets.GITHUB_TOKEN }}
+      #     path: ui
       - name: Deploy Check
         run: |
-          ls -a
+          ls -al
