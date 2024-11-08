@@ -1,9 +1,7 @@
 name: Svelte_UI
 
 on:
-  push:
-  pull_request:
-    branches: [main]
+  workflow_call:
 
 defaults:
   run:
