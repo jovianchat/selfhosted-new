@@ -1,4 +1,4 @@
-name: Release
+name: Publish Docker Image
 
 on:
   push:
@@ -8,9 +8,11 @@ on:
 jobs:
   axum-api:
     uses: ./.github/workflows/axum-api.yml
+  svelte-ui:
+    uses: ./.github/workflows/svelte-ui.yml
   build:
+    needs: [axum-api, svelte-ui]
     runs-on: ubuntu-22.04
-    if: ${{ github.event.workflow_run.conclusion == 'success' }}
     steps:
       # Step 1: Check out the code
       - uses: actions/download-artifact@v4
