@@ -44,4 +44,3 @@ jobs:
             ui/build
             ui/package.json
             ui/node_modules
-          retention-days: 1

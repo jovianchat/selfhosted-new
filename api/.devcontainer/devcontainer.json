@@ -4,14 +4,20 @@
 		"dockerfile": "Dockerfile",
 		"context": "."
 	},
-	"runArgs": ["--env-file=.env", "--network=host"],
+	"runArgs": [
+		"--env-file=.env",
+		"--network=host"
+	],
 	"containerEnv": {
 		"TZ": "America/Vancouver"
 	},
 	"postCreateCommand": ".devcontainer/postCreateCommand.sh",
 	"customizations": {
 		"vscode": {
-			"extensions": ["rust-lang.rust-analyzer", "fill-labs.dependi"]
+			"extensions": [
+				"rust-lang.rust-analyzer",
+				"fill-labs.dependi"
+			]
 		}
 	},
 	"shutdownAction": "stopContainer",

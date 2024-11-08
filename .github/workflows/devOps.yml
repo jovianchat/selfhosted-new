@@ -17,7 +17,7 @@ jobs:
         with:
           name: ui-output-files
           run-id: ${{ github.event.workflow_run.id }}
-          path: ui
+          github-token: ${{ secrets.GITHUB_TOKEN }}
       - name: Deploy Check
         run: |
           ls -a
