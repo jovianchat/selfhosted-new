@@ -11,7 +11,7 @@ WORKDIR /app
 COPY ../frontend/build /app/ui/build
 COPY ../frontend/node_modules /app/ui/node_modules
 COPY ../frontend/package.json /app/ui/package.json
-COPY ../backend/axum-api /app/api/axum
+COPY ../backend/axum-api /app/
 
 # Change ownership of Working Directory to UID 1000
 RUN chown -R 1000:1000 /app
