@@ -21,11 +21,11 @@ jobs:
       #   with:
       #     name: axum_build_binary
       #     path: backend
-      - run: ls -R
       - uses: actions/download-artifact@v4
         with:
           name: svelte_build_output
           path: frontend
+      - run: ls -R
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
