@@ -48,7 +48,7 @@ jobs:
         with:
           name: sqlx_offline
           path: backend/.sqlx
-          include_hidden_files: true
+          include-hidden-files: true
 
   build:
     needs: checks_and_setup

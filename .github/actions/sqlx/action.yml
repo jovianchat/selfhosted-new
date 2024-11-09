@@ -18,20 +18,20 @@ runs:
         fi
       shell: bash
 
-    - name: Run database migrations
-      run: sqlx migrate run
-      shell: bash
-      working-directory: ${{ inputs.working-directory }}
-
+    # Cache sqlx offline metadata
     - name: SQLx offline metadata cache
       id: cache-sqlx
       uses: actions/cache@v4
       with:
         path: ${{ inputs.working-directory }}/.sqlx
         key: ${{ runner.os }}-sqlx-${{ hashFiles('${{ inputs.working-directory }}/migrations/**') }}
-
     - name: Generate SQLx offline metadata
       if: steps.cache-sqlx.outputs.cache-hit != 'true'
       run: cargo sqlx prepare
+      shell: bash
+      working-directory: ${{ inputs.working-directory }}
+
+    - name: Run database migrations
+      run: sqlx migrate run
       shell: bash
       working-directory: ${{ inputs.working-directory }}
