@@ -17,14 +17,14 @@ COPY backend/axum-api /app/
 RUN chown -R 1000:1000 /app
 
 # Copy Start Script
-COPY docker_entrypoint.sh /etc/app/init.sh
+COPY .docker-context/docker_entrypoint.sh /etc/app/init.sh
 RUN chmod +x /etc/app/init.sh
 
 # Copy nginx config
-COPY nginx.conf /etc/nginx/nginx.conf
+COPY .docker-context/nginx.conf /etc/nginx/nginx.conf
 
 # Copy supervisord config
-COPY supervisord.conf /etc/supervisord.conf
+COPY .docker-context/supervisord.conf /etc/supervisord.conf
 
 # Start supervisord
 ENTRYPOINT ["/etc/app/init.sh"]

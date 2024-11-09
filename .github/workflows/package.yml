@@ -38,9 +38,8 @@ jobs:
 
       - name: Build
         uses: docker/build-push-action@v6
-        with: 
-          context: .
-          file: ./docker-context/Dockerfile
+        with:
+          file: docker-context/Dockerfile
           push: true
           tags: selfhosted:latest
 
