@@ -5,45 +5,18 @@ on:
   pull_request:
     branches: [main]
 
+defaults:
+  run:
+    working-directory: docker-context
+
 jobs:
-  # JOB to run change detection
-  changes:
-    runs-on: ubuntu-latest
-    # Required permissions
-    permissions:
-      pull-requests: read
-    # Set job outputs to values from filter step
-    outputs:
-      backend: ${{ steps.filter.outputs.backend }}
-      frontend: ${{ steps.filter.outputs.frontend }}
-    steps:
-      - uses: actions/checkout@v4
-      # For pull requests it's not necessary to checkout the code
-      - uses: dorny/paths-filter@v3
-        id: filter
-        with:
-          filters: |
-            backend:
-              - 'backend/**'
-            frontend:
-              - 'frontend/**'
-
   axum-api:
-    needs: changes
-    if: ${{ needs.changes.outputs.backend == 'true' }}
     uses: ./.github/workflows/axum-api.yml
-
   svelte-ui:
-    needs: changes
-    if: ${{ needs.changes.outputs.frontend == 'true' }}
     uses: ./.github/workflows/svelte-ui.yml
-
   build:
     needs: [axum-api, svelte-ui]
     runs-on: ubuntu-22.04
-    defaults:
-      run:
-        working-directory: docker-context
     steps:
       # Download build artifacts
       - uses: actions/download-artifact@v4
