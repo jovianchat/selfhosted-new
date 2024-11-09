@@ -35,7 +35,7 @@ runs:
       uses: actions/upload-artifact@v4
       with:
         name: sqlx_offline
-        path: ${{ inputs.working-directory }}/.sqlx
+        path: ./.sqlx
 
     - name: Run database migrations
       run: ls -al
