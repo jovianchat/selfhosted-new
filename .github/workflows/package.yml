@@ -35,13 +35,15 @@ jobs:
           registry: ghcr.io
           username: ${{ github.repository_owner }}
           password: ${{ secrets.GITHUB_TOKEN }}
-      - run: ls -ar
-      # - name: Build
-      #   uses: docker/build-push-action@v6
-      #   with: 
-      #     context: "{{defaultContext}}:docker-context"
-      #     push: true
-      #     tags: selfhosted:latest
+
+      - name: Build
+        uses: docker/build-push-action@v6
+        with: 
+          context: "{{defaultContext}}:docker-context"
+          push: true
+          tags: selfhosted:latest
+          build-args: |
+            --no-cache
 
       - name: Inspect
         run: |
