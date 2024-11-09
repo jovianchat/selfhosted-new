@@ -47,7 +47,8 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: sqlx_offline
-          path: backend/.sqlx
+          path: |
+            backend/.sqlx
           include-hidden-files: true
 
   build:
@@ -58,15 +59,19 @@ jobs:
       SQLX_OFFLINE: "true"
     steps:
       - uses: actions/checkout@v4
+
       - name: Install Rust Toolchain
         uses: ./.github/actions/rust-setup
+
       - name: Sqlx Download Offline Artifacts
         uses: actions/download-artifact@v4
         with:
           name: sqlx_offline
           path: backend
+
       - name: Cargo Build Release
-        run: ls -al
+        run: cargo build --release
+        
       - name: Upload Build Artifacts
         uses: actions/upload-artifact@v4
         with:

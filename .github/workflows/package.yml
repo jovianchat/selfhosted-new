@@ -7,7 +7,7 @@ on:
 
 defaults:
   run:
-    working-directory: devops
+    working-directory: docker-context
 
 jobs:
   axum-api:
