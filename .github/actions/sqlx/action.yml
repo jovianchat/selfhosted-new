@@ -33,3 +33,8 @@ runs:
       with:
         path: ${{ inputs.working-directory }}/.sqlx
         key: ${{ runner.os }}-sqlx-${{ hashFiles('migrations/**') }}
+    - name: Sqlx Offline Artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        name: sqlx_offline
+        path: backend/.sqlx
