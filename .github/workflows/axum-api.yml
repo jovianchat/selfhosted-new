@@ -39,7 +39,7 @@ jobs:
       - name: Run Rustfmt & Clippy # Check code formatting && Run Clippy and treat warnings as errors
         run: cargo fmt -- --check && cargo clippy --all-targets --all-features -- -D warnings
       - name: Build Project
-        run: cargo build --verbose && ls -al # Build the project in debug mode
+        run: cargo build --verbose # Build the project in debug mode
       # - name: Run Tests
       #   run: cargo test --all-features --verbose # Run all tests with features enabled
 
@@ -48,7 +48,7 @@ jobs:
         with:
           name: sqlx_offline
           path: backend/.sqlx
-          retention-days: 7
+          include_hidden_files: true
 
   build:
     needs: checks_and_setup
