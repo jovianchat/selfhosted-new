@@ -39,7 +39,7 @@ jobs:
       - name: Run Rustfmt & Clippy # Check code formatting && Run Clippy and treat warnings as errors
         run: cargo fmt -- --check && cargo clippy --all-targets --all-features -- -D warnings
       - name: Build Project
-        run: cargo build --verbose # Build the project in debug mode
+        run: cargo build # Build the project in debug mode
       # - name: Run Tests
       #   run: cargo test --all-features --verbose # Run all tests with features enabled
 
@@ -65,9 +65,8 @@ jobs:
         with:
           name: sqlx_offline
           path: backend
-          include-hidden-files: true
       - name: Cargo Build Release
-        run: ls -al
+        run: cargo build --release
       - name: Upload Build Artifacts
         uses: actions/upload-artifact@v4
         with:
