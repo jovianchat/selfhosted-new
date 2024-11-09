@@ -23,22 +23,15 @@ runs:
       shell: bash
       working-directory: ${{ inputs.working-directory }}
 
-    # - name: SQLx offline metadata cache
-    #   id: cache-sqlx
-    #   uses: actions/cache@v4
-    #   with:
-    #     path: ${{ inputs.working-directory }}/.sqlx
-    #     key: ${{ runner.os }}-sqlx-${{ hashFiles('${{ inputs.working-directory }}/migrations/**') }}
+    - name: SQLx offline metadata cache
+      id: cache-sqlx
+      uses: actions/cache@v4
+      with:
+        path: ${{ inputs.working-directory }}/.sqlx
+        key: ${{ runner.os }}-sqlx-${{ hashFiles('${{ inputs.working-directory }}/migrations/**') }}
 
     - name: Generate SQLx offline metadata
-      # if: steps.cache-sqlx.outputs.cache-hit != 'true'
-      run: ls -a && cargo sqlx prepare
+      if: steps.cache-sqlx.outputs.cache-hit != 'true'
+      run: cargo sqlx prepare
       shell: bash
       working-directory: ${{ inputs.working-directory }}
-
-    - name: Upload SQLx offline metadata as artifact
-      uses: actions/upload-artifact@v4
-      with:
-        name: sqlx_offline
-        path: ${{ inputs.working-directory }}/.sqlx
-        retention-days: 7
