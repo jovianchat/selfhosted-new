@@ -5,10 +5,6 @@ on:
   pull_request:
     branches: [main]
 
-defaults:
-  run:
-    working-directory: docker-context
-
 jobs:
   # JOB to run change detection
   changes:
@@ -44,6 +40,9 @@ jobs:
   build:
     needs: [axum-api, svelte-ui]
     runs-on: ubuntu-22.04
+    defaults:
+      run:
+        working-directory: docker-context
     steps:
       # Download build artifacts
       - uses: actions/download-artifact@v4
