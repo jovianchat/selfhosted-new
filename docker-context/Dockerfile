@@ -8,10 +8,10 @@ RUN apt update && apt install -y nginx supervisor && apt clean && rm -rf /var/li
 WORKDIR /app
 
 # Copy files
-COPY ../sveltekit-ui/build /app/ui/build
-COPY ../sveltekit-ui/node_modules /app/ui/node_modules
-COPY ../sveltekit-ui/package.json /app/ui/package.json
-COPY ../axum-api/app /app/api/axum
+COPY ../frontend/build /app/ui/build
+COPY ../frontend/node_modules /app/ui/node_modules
+COPY ../frontend/package.json /app/ui/package.json
+COPY ../backend/axum-api /app/api/axum
 
 # Change ownership of Working Directory to UID 1000
 RUN chown -R 1000:1000 /app
