@@ -32,7 +32,7 @@ runs:
 
     - name: Generate SQLx offline metadata
       # if: steps.cache-sqlx.outputs.cache-hit != 'true'
-      run: cargo sqlx prepare
+      run: cargo sqlx prepare --workspace
       shell: bash
       working-directory: ${{ inputs.working-directory }}
 
