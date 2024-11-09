@@ -21,10 +21,10 @@ jobs:
     runs-on: ubuntu-22.04
     steps:
       # Download build artifacts
-      - uses: actions/download-artifact@v4
-        with:
-          name: axum_build_binary
-          path: api
+      # - uses: actions/download-artifact@v4
+      #   with:
+      #     name: axum_build_binary
+      #     path: api
       - uses: actions/download-artifact@v4
         with:
           name: svelte_build_output
