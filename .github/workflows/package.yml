@@ -20,6 +20,7 @@ jobs:
       - uses: actions/download-artifact@v4
         with:
           path: artifacts
+      - run: ls -R artifacts
       # - uses: actions/download-artifact@v4
       #   with:
       #     name: svelte_build_output
