@@ -38,7 +38,9 @@ jobs:
           context: .
           file: ./docker-context/Dockerfile
           push: true
-          tags: selfhosted:latest
+          tags: |
+            ghcr.io/beyondchat/selfhosted:latest
+            ghcr.io/beyondchat/selfhosted:beta-0.0.1
 
       - name: Inspect
         run: |
