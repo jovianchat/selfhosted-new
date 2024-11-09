@@ -27,14 +27,14 @@ runs:
       run: cargo sqlx prepare
       shell: bash
       working-directory: ${{ inputs.working-directory }}
+    - name: Sqlx Offline Artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        name: sqlx_offline
+        path: ${{ inputs.working-directory }}/.sqlx
     - name: Cache Sqlx Offline metadata
       id: sqlx-cache
       uses: actions/cache@v4
       with:
         path: ${{ inputs.working-directory }}/.sqlx
         key: ${{ runner.os }}-sqlx-${{ hashFiles('migrations/**') }}
-    - name: Sqlx Offline Artifacts
-      uses: actions/upload-artifact@v4
-      with:
-        name: sqlx_offline
-        path: ${{ inputs.working-directory }}/.sqlx
