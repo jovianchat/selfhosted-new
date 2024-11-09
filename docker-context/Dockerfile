@@ -8,7 +8,7 @@ RUN apt update && apt install -y nginx supervisor && apt clean && rm -rf /var/li
 WORKDIR /app
 
 # Copy files
-COPY frontend/build /app/ui/build
+COPY ../frontend/build /app/ui/build
 COPY frontend/node_modules /app/ui/node_modules
 COPY frontend/package.json /app/ui/package.json
 COPY backend/axum-api /app/
