@@ -56,7 +56,7 @@ jobs:
       - name: Sqlx Download Offline Artifacts
         uses: actions/download-artifact@v4
         with:
-          name: sqlx_offline_artifacts
+          name: sqlx_offline
           path: backend/
       - name: Cargo Build Release
         run: cargo build --release --verbose
