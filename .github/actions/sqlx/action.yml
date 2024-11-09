@@ -18,6 +18,11 @@ runs:
         fi
       shell: bash
 
+    - name: Run database migrations
+      run: sqlx migrate run
+      shell: bash
+      working-directory: ${{ inputs.working-directory }}
+
     # - name: SQLx offline metadata cache
     #   id: cache-sqlx
     #   uses: actions/cache@v4
@@ -37,8 +42,3 @@ runs:
         name: sqlx_offline
         path: ${{ inputs.working-directory }}/.sqlx
         retention-days: 7
-
-    - name: Run database migrations
-      run: sqlx migrate run
-      shell: bash
-      working-directory: ${{ inputs.working-directory }}
