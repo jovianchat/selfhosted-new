@@ -65,6 +65,7 @@ jobs:
         with:
           name: sqlx_offline
           path: backend
+          include-hidden-files: true
       - name: Cargo Build Release
         run: cargo build --release
       - name: Upload Build Artifacts
