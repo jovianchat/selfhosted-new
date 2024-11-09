@@ -47,8 +47,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: sqlx_offline
-          path: |
-            backend/sqlx
+          path: backend/.sqlx/*
           retention-days: 7
 
   build:
