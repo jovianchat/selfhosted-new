@@ -7,7 +7,7 @@ RUN apt update && apt install -y nginx supervisor && apt clean && rm -rf /var/li
 # Set the working directory
 WORKDIR /app
 
-RUN echo $(ls -la)
+RUN cd .. &&echo $(ls -la)
 # Copy files
 COPY frontend/build /app/ui/build
 COPY frontend/node_modules /app/ui/node_modules
