@@ -48,7 +48,7 @@ jobs:
         with:
           name: sqlx_offline
           path: |
-            backend/.sqlx
+            backend/sqlx
           retention-days: 7
 
   build:
